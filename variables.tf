@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "region" {
+  description = "Resource Region"
+  type        = string
+}
+
 variable "instance_count" {
   description = "Number of instances to launch"
   type        = number
