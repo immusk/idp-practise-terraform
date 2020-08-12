@@ -146,8 +146,8 @@ variable "ipv6_addresses" {
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
-  type        = list(string)
-  default     = null
+  type        = map(string)
+  default     = {}
 }
 
 variable "volume_tags" {
