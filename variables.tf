@@ -153,7 +153,6 @@ variable "tags" {
 variable "volume_tags" {
   description = "A mapping of tags to assign to the devices created by the instance at launch time"
   type        = map(string)
-  default     = {}
 }
 
 variable "root_block_device" {
