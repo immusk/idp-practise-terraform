@@ -18,7 +18,6 @@ resource "aws_instance" "this" {
     count.index,
   )
   key_name               = var.key_name
-  region                 = var.region
   monitoring             = var.monitoring
   get_password_data      = var.get_password_data
   vpc_security_group_ids = var.vpc_security_group_ids
