@@ -2,6 +2,10 @@ locals {
   is_t_instance_type = true
 }
 
+provider "aws" {
+  region  = "us-east-2"
+}
+
 resource "aws_instance" "this" {
   count = var.instance_count
 
