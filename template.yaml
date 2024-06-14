@@ -93,7 +93,7 @@ spec:
       name: Provisioning your Infrastructure
       action: trigger:harness-custom-pipeline
       input:
-        url: YOUR PIPELINE URL HERE
+        url: "https://app.harness.io/ng/account/Ompd5rAMSfq97LoZsErwnQ/all/orgs/default/projects/imransandbox/pipelines/idppractiseterraform/pipeline-studio"
         inputset:
           owner: ${{ parameters.owner }}
         apikey: ${{ parameters.token }}
