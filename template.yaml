@@ -1,0 +1,103 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: harness_iac
+  title: Create Infra via Harness IaCM
+  description: Uses Harness-IaCM to dynamically provision any required infrastructure.
+  tags:
+    - tf
+    - aws
+    - gcp
+    - azure
+spec:
+  owner: iacm_team
+  type: environment
+  parameters:
+    - title: Project and Repo Details
+      required:
+        - owner
+        - github_repo
+      properties:
+        owner:
+          title: Choose the Owner
+          type: string
+          ui:field: OwnerPicker
+          ui:options: null
+        github_repo:
+          title: What App/Repo will this infra be associated with?
+          type: string
+          description: someRepoName
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+    - title: Infrastructure Details
+      properties:
+        cloud_provider:
+          title: Choose a cloud provider
+          type: string
+          enum:
+            - GCP
+            - AWS
+            - Azure
+            - OCI
+          default: AWS
+        tech_stack:
+          title: Choose the Underlying Infra
+          type: string
+          enum:
+            - K8s
+            - VM
+            - ECS
+            - Lambda
+          default: VM
+        instance_type:
+          title: Chose the Instance Type
+          type: string
+          enum:
+            - t2.micro
+            - t2.large
+            - t3.2xlarge
+            - other
+          default: t2.micro
+        ami:
+          title: Choose desired AMI
+          type: string
+          enum:
+            - ami-***************
+            - ami-***************
+          default: ami-***************
+        subnet:
+          title: Choose desired subnet
+          type: string
+          enum:
+            - Create New
+            - subnet-***************
+            - subnet-***************
+          default: subnet-***************
+        vpc:
+          title: Choose VPC security group
+          type: string
+          enum:
+            - Create New
+            - sg-***************
+            - sg-***************
+          default: sg-***************
+        count:
+          title: Choose desired instance count (i.e. How many VMs?)
+          type: string
+          default: "1"
+  steps:
+    - id: trigger
+      name: Provisioning your Infrastructure
+      action: trigger:harness-custom-pipeline
+      input:
+        url: YOUR PIPELINE URL HERE
+        inputset:
+          owner: ${{ parameters.owner }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
